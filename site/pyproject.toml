@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "int20h-2023-test site"
+version = "0.1.0"
+description = ""
+authors = ["antos07 <trotsenko.ant07@gmail.com>"]
+readme = "README.md"
+packages = [{include = "int20h_2023_test"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
