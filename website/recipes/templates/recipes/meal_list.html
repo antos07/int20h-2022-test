@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal list</title>
+</head>
+<body>
+    {% for meal in meal_list %}
+        <h3>{{ meal.name }}</h3>
+        <img src="{{ meal.image_url }}">
+        <p>{{ meal.instructions }}</p>
+        <br>
+    {% endfor %}
+</body>
+</html>
