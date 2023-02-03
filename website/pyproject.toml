@@ -4,10 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["antos07 <trotsenko.ant07@gmail.com>"]
 readme = "README.md"
-packages = [{include = "int20h_2023_test"}]
+
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 django = "^4.1.6"
 
 
