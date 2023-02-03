@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+admin.site.register(models.Meal)
+admin.site.register(models.Ingredient)
+admin.site.register(models.MealIngredientMeasure)
+admin.site.register(models.IngredientCategory)
