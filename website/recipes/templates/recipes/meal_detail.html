@@ -8,7 +8,9 @@
     <h1>{{ meal.name }}</h1>
     <img src="{{ meal.image_url }}">
     <p>{{ meal.instructions }}</p>
-    <video src="{{ meal.video_instructions_url }}"></video>
-    <a href="{% url recipes.list %}">Back</a>
+    {% if meal.video_instructions_url %}
+        <a href="{{ meal.video_instructions_url }}">Video</a>
+    {% endif %}
+    <a href="{% url 'recipes:index' %}">Back</a>
 </body>
 </html>
