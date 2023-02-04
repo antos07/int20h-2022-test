@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for meal in meal_list %}
-        <h3><a href="{% url 'recipes:detail' pk=meal.pk %}" {{ meal.name }}</h3>
+        <h3><a href="{% url 'recipes:detail' pk=meal.pk %}"> {{ meal.name }} </a></h3>
         <img src="{{ meal.image_url }}">
         <p>{{ meal.instructions }}</p>
         <br>
