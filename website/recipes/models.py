@@ -60,3 +60,10 @@ class TheMealDBIngredient(models.Model):
 
     themealdb_id = models.PositiveBigIntegerField(primary_key=True)
     ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredientCategory(models.Model):
+    """Stores the ingredient category's name at TheMealDB"""
+
+    temealdb_name = models.CharField(max_length=30, primary_key=True)
+    category = models.OneToOneField(IngredientCategory, on_delete=models.CASCADE)
