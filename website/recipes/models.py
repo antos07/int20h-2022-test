@@ -6,6 +6,7 @@ class Meal(models.Model):
     name = models.CharField(max_length=100)
     instructions = models.TextField()
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     video_instructions_url = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -25,6 +26,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     meals = models.ManyToManyField(Meal, through='MealIngredientMeasure')
     category = models.ForeignKey(IngredientCategory, on_delete=models.SET_NULL, null=True, blank=True)
 

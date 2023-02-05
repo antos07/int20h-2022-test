@@ -62,7 +62,8 @@ def _create_ingredient_from_dict(themealdb_ingredient_dict: typehints.Ingredient
     return models.Ingredient.objects.create(
         name=themealdb_ingredient_dict['strIngredient'].capitalize(),
         description=themealdb_ingredient_dict['strDescription'],
-        image_url=utils.ingredient_image_url_by_name(themealdb_ingredient_dict['strIngredient'])
+        image_url=utils.ingredient_image_url_by_name(themealdb_ingredient_dict['strIngredient']),
+        small_image_url=utils.ingredient_small_image_url_by_name(themealdb_ingredient_dict['strIngredient'])
     )
 
 
@@ -72,6 +73,7 @@ def _create_meal_from_dict(themealdb_meal_dict: typehints.Meal) -> models.Meal:
         name=themealdb_meal_dict['strMeal'].capitalize(),
         instructions=themealdb_meal_dict['strInstructions'],
         image_url=themealdb_meal_dict['strMealThumb'],
+        small_image_url=themealdb_meal_dict['strMealThumb'] + '/preview',
         video_instructions_url=themealdb_meal_dict['strYoutube']
     )
 
