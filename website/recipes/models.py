@@ -46,3 +46,17 @@ class MealIngredientMeasure(models.Model):
 
     def __str__(self):
         return f'"{self.ingredient}" in "{self.meal}": {self.measure}'
+
+
+class TheMealDBMeal(models.Model):
+    """Stores the meal's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    meal = models.OneToOneField(Meal, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredient(models.Model):
+    """Stores the ingredient's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
