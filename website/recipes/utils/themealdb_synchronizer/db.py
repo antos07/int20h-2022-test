@@ -23,7 +23,7 @@ def save_themealdb_ingredient(themealdb_ingredient_dict: typehints.Ingredient) -
     except models.TheMealDBIngredientCategory.DoesNotExist:
         themealdb_category = models.TheMealDBIngredientCategory.objects.create(
             temealdb_name=themealdb_ingredient_dict['strType'],
-            category=models.IngredientCategory.objects.create(name=themealdb_ingredient_dict['strType'])
+            category=models.IngredientCategory.objects.create(name=themealdb_ingredient_dict['strType'].capitalize())
         )
     ingredient.category = themealdb_category.category
     ingredient.save()
@@ -60,7 +60,7 @@ def save_themealdb_meal(themealdb_meal_dict: typehints.Meal) -> None:
 def _create_ingredient_from_dict(themealdb_ingredient_dict: typehints.Ingredient) -> models.Ingredient:
     """Creates an Ingredient model without a category"""
     return models.Ingredient.objects.create(
-        name=themealdb_ingredient_dict['strIngredient'],
+        name=themealdb_ingredient_dict['strIngredient'].capitalize(),
         description=themealdb_ingredient_dict['strDescription'],
         image_url=utils.ingredient_image_url_by_name(themealdb_ingredient_dict['strIngredient'])
     )
@@ -69,7 +69,7 @@ def _create_ingredient_from_dict(themealdb_ingredient_dict: typehints.Ingredient
 def _create_meal_from_dict(themealdb_meal_dict: typehints.Meal) -> models.Meal:
     """Creates a Meal model without ingredients"""
     return models.Meal.objects.create(
-        name=themealdb_meal_dict['strMeal'],
+        name=themealdb_meal_dict['strMeal'].capitalize(),
         instructions=themealdb_meal_dict['strInstructions'],
         image_url=themealdb_meal_dict['strMealThumb'],
         video_instructions_url=themealdb_meal_dict['strYoutube']
@@ -84,6 +84,8 @@ def _extract_normalized_ingredient_measures(themealdb_meal_dict: typehints) -> d
         measure = themealdb_meal_dict[f'strMeasure{i}']  # noqa
         if name is None:
             break
+
+        name = name.capitalize()
         if name not in measures:
             measures[name] = measure
         else:
