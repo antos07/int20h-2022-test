@@ -14,15 +14,11 @@ public class ApiApplication {
     User user=new User();
     Basket basket =new Basket();
     Fridge fridge=new Fridge();
-<<<<<<<< HEAD:api/api2/src/main/java/com/example/api2/ApiApplication.java
     @Autowired
     FridgeRepository fridgeRepository;
 
     @Autowired
     BasketRepository basketRepository;
-========
-    FridgeRepository repo;
->>>>>>>> origin/api-dev:api/api/src/main/java/com/api/api/ApiApplication.java
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
 
