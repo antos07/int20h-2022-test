@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <form action="{% url 'recipes:index' %}" method="get">
+    <form action="{% url 'recipes:meal_list' %}" method="get">
         <div class="input-group rounded">
             <input name="q" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                    aria-describedby="search-addon" value="{{ search_query }}"/>
@@ -17,7 +17,7 @@
         <div class="row mt-2 underImageText">
             {% for meal in meal_list %}
                 <div class="col">
-                    <a href="{% url 'recipes:detail' pk=meal.pk %}">
+                    <a href="{% url 'recipes:meal_details' pk=meal.pk %}">
                         <img src="{% if meal.small_image_url %}
                             {{ meal.small_image_url }}
                         {% elif meal.image_url %}
@@ -27,7 +27,7 @@
                         {% endif %}" alt="{{ meal.name }} icon" class="rounded mx-auto d-block" width="120px"
                              height="120px"/>
                     </a>
-                    <a href="{% url 'recipes:detail' pk=meal.pk %}" class="text-decoration-none text-black">
+                    <a href="{% url 'recipes:meal_details' pk=meal.pk %}" class="text-decoration-none text-black">
                         <p class="text-center mt-2">{{ meal.name }}</p></a>
                 </div>
             {% endfor %}
