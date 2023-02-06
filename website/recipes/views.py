@@ -5,6 +5,7 @@ from .models import Meal, MealIngredientMeasure
 
 class MealListView(ListView):
     model = Meal
+    queryset = Meal.objects.order_by('name')
 
 
 class MealDetailView(DetailView):
