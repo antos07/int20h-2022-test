@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% regroup ingredient_list by category as ingredient_groups %}
+{% for category, ingredients in ingredient_groups %}
+    <h1>{% firstof category.name 'Other' %}</h1>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.name }}</li>
+        {% endfor %}
+    </ul>
+
+{% endfor %}
+</body>
+</html>

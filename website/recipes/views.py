@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 
-from .models import Meal, MealIngredientMeasure
+from .models import Meal, MealIngredientMeasure, Ingredient
 
 
 class MealListView(ListView):
@@ -38,3 +38,8 @@ class MealDetailView(DetailView):
         context['measures'] = MealIngredientMeasure.objects.filter(meal=context['meal'])
 
         return context
+
+
+class IngredientListView(ListView):
+    model = Ingredient
+    ordering = ['-category', 'name']
