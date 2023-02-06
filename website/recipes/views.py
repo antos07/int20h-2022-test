@@ -5,7 +5,27 @@ from .models import Meal, MealIngredientMeasure
 
 class MealListView(ListView):
     model = Meal
-    queryset = Meal.objects.order_by('name')
+
+    def get_queryset(self):
+        meal_queryset = Meal.objects
+
+        # Filtering search results, if query is present.
+        if search_query := self.request.GET.get('q'):
+            meal_queryset = meal_queryset.filter(name__search=search_query)
+
+        return meal_queryset.order_by('name')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Default value for search_query
+        context['search_query'] = ''
+
+        # Setting search query from query parameter, if query is present.
+        if search_query := self.request.GET.get('q'):
+            context['search_query'] = search_query
+
+        return context
 
 
 class MealDetailView(DetailView):
