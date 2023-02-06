@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge {
-    List<String> ingredients=new ArrayList<String>();
+    private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 
     public Fridge() {
     }
 
-    public Fridge(List<String> ingredients) {
+    public Fridge(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 }

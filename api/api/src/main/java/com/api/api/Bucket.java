@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
-    List<Meal> meals=new ArrayList<Meal>();
+    private List<Meal> meals=new ArrayList<Meal>();
+    private List<Ingredient> needed_ingredients=new ArrayList<Ingredient>();
+
+    public List<Ingredient> getNeeded_ingredients() {
+        return needed_ingredients;
+    }
+
     public List<Meal> getMeals() {
         return meals;
     }
@@ -28,6 +34,7 @@ public class Bucket {
     }
     public void addMeal(Meal meal){
         meals.add(meal);
+        countAllNeededIngredients();
     }
     public class indexOutOfBounds extends Exception{
         public indexOutOfBounds(String errorMessage){
@@ -43,6 +50,7 @@ public class Bucket {
         while(meals.get(index).getId()!=meal.getId() && index<meals.size()) index++;
         if(index==meals.size()) throw new indexOutOfBounds("Index is out of borders");
         meals.remove(index);
+        countAllNeededIngredients();
     }
 
     public boolean isMealInBucket(Meal meal){
@@ -54,11 +62,16 @@ public class Bucket {
         return meals.toString();
     }
 
-    public List<String> countIngredients(){
-        List<String> ingredients=new ArrayList<String>();
+    public void countAllNeededIngredients(){
+        needed_ingredients.clear();
         for(int i=0; i<meals.size(); i++){
-            ingredients.add(meals.get(i).getIngredients());
+            for(int j=0; j<meals.get(i).getIngredients().size(); j++){
+                if(needed_ingredients.contains(meals.get(i).getIngredients().get(j))) needed_ingredients.add(meals.get(i).getIngredients().get(j));
+                else{
+                    int index=needed_ingredients.indexOf(meals.get(i).getIngredients().get(j));
+                    needed_ingredients.get(index).setMeasure(needed_ingredients.get(index).getMeasure()+meals.get(i).getIngredients().get(j).getMeasure());
+                }
+            }
         }
-        return ingredients;
     }
 }

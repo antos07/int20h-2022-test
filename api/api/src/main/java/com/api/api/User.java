@@ -3,7 +3,7 @@ package com.api.api;
 import java.util.Random;
 
 public class User {
-    int id;
+    private int id;
 
     public int getId() {
         return id;
