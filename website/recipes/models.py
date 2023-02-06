@@ -6,6 +6,7 @@ class Meal(models.Model):
     name = models.CharField(max_length=100)
     instructions = models.TextField()
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     video_instructions_url = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -25,6 +26,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     meals = models.ManyToManyField(Meal, through='MealIngredientMeasure')
     category = models.ForeignKey(IngredientCategory, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -46,3 +48,24 @@ class MealIngredientMeasure(models.Model):
 
     def __str__(self):
         return f'"{self.ingredient}" in "{self.meal}": {self.measure}'
+
+
+class TheMealDBMeal(models.Model):
+    """Stores the meal's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    meal = models.OneToOneField(Meal, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredient(models.Model):
+    """Stores the ingredient's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredientCategory(models.Model):
+    """Stores the ingredient category's name at TheMealDB"""
+
+    temealdb_name = models.CharField(max_length=30, primary_key=True)
+    category = models.OneToOneField(IngredientCategory, on_delete=models.CASCADE)
