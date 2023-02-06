@@ -1,16 +1,28 @@
-package com.api.api;
+package com.example.api2;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Bucket {
+@Document
+public class Basket {
+    @Id
+    private int id;
     private List<Meal> meals=new ArrayList<Meal>();
     private List<Ingredient> needed_ingredients=new ArrayList<Ingredient>();
 
     public List<Ingredient> getNeeded_ingredients() {
         return needed_ingredients;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Meal> getMeals() {
@@ -22,11 +34,11 @@ public class Bucket {
         countAllNeededIngredients(fridge);
     }
 
-    public Bucket(List<Meal> meals) {
+    public Basket(List<Meal> meals) {
         this.meals = meals;
     }
 
-    public Bucket() {
+    public Basket() {
     }
 
     public boolean isEmpty(){
@@ -72,20 +84,6 @@ public class Bucket {
         for(int i=0; i<fridge.getIngredients().size(); i++){
             if (needed_ingredients.contains(fridge.getIngredients().get(i))) needed_ingredients.remove(fridge.getIngredients().get(i));
         }
-        /*for(int i=0; i<meals.size(); i++){
-            for(int j=0; j<meals.get(i).getIngredients().size(); j++){
-                if(needed_ingredients.contains(meals.get(i).getIngredients().get(j))) needed_ingredients.add(meals.get(i).getIngredients().get(j));
-                else{
-                    int index=needed_ingredients.indexOf(meals.get(i).getIngredients().get(j));
-                    needed_ingredients.get(index).setMeasure(needed_ingredients.get(index).getMeasure()+meals.get(i).getIngredients().get(j).getMeasure());
-                }
-            }
-        }*/
-        // for(int i=0; i<fridge.getIngredients().size(); i++){
-          //  if(needed_ingredients.contains(fridge.getIngredients().get(i))){
-
-           // }
-        //}
     }
 
 

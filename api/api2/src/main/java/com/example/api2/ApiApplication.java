@@ -1,5 +1,6 @@
-package com.api.api;
+package com.example.api2;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +12,17 @@ import java.util.List;
 @RestController
 public class ApiApplication {
     User user=new User();
-    Bucket bucket=new Bucket();
+    Basket basket =new Basket();
     Fridge fridge=new Fridge();
+    @Autowired
+    FridgeRepository fridgeRepository;
+
+    @Autowired
+    BasketRepository basketRepository;
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
 
     }
-
-
     @GetMapping("/userid")
     public int userId(){
         return user.getId();
@@ -26,11 +30,11 @@ public class ApiApplication {
 
     @GetMapping("/allMeals")
     public String allMeals(){
-        return bucket.allMeals();
+        return basket.allMeals();
     }
-    @GetMapping("/isBucketEmpty")
-    public boolean isBucketEmpty(){
-      return bucket.isEmpty();
+    @GetMapping("/isBasketEmpty")
+    public boolean isBasketEmpty(){
+      return basket.isEmpty();
     }
 
     @GetMapping("/dummy")
@@ -48,10 +52,22 @@ public class ApiApplication {
         Ingredient bacon=new Ingredient(10, "jj", "jjj", 89, "hjk");
         fridge.setIngredients(List.of(milk, apple));
         Meal pasta=new Meal(1, "pasta", List.of(rise, milk, water), "kkkk");
-        bucket.setMeals(List.of(pasta), fridge);
+        basket.setMeals(List.of(pasta), fridge);
+        idSetting();
+        dataSaving();
     }
     @GetMapping("/ingr")
     public List<Ingredient> neededIng(){
-        return bucket.getNeeded_ingredients();
+        return basket.getNeeded_ingredients();
+    }
+
+    public void idSetting(){
+        fridge.setId(user.getId());
+        basket.setId(user.getId());
+    }
+
+    public void dataSaving(){
+        fridgeRepository.save(fridge);
+        basketRepository.save(basket);
     }
 }

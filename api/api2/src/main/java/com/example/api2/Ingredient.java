@@ -1,4 +1,4 @@
-package com.api.api;
+package com.example.api2;
 
 public class Ingredient {
     private int id;
@@ -17,16 +17,7 @@ public class Ingredient {
         this.description = description;
         this.category_id = category_id;
         this.image_url = image_url;
-        //this.measure = measure;
     }
-
-    /*public double getMeasure() {
-        return measure;
-    }
-
-    public void setMeasure(double measure) {
-        this.measure = measure;
-    }*/
 
     public int getId() {
         return id;
