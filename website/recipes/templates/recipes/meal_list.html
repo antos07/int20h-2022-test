@@ -2,14 +2,16 @@
 {% load static %}
 
 {% block content %}
-    <div class="input-group rounded">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon"/>
-        <span class="input-group-text border-0 unique-color-2" id="search-addon" width="25px" height="25px">
+    <form action="{% url 'recipes:index' %}" method="get">
+        <div class="input-group rounded">
+            <input name="q" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" value="{{ search_query }}"/>
+            <span class="input-group-text border-0 unique-color-2" id="search-addon" width="25px" height="25px">
               <img src="{% static 'recipes/images/search.png' %}" alt="Search icon" width="18px" height="18px"
                    class="unique-color-2"/>
             </span>
-    </div>
+        </div>
+    </form>
 
     <div class="container mt-5">
         <div class="row mt-2 underImageText">
