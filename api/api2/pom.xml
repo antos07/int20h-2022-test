@@ -42,11 +42,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-<<<<<<<< HEAD:api/api2/pom.xml
+
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
-========
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
@@ -61,7 +62,6 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
->>>>>>>> origin/api-dev:api/api/pom.xml
         </dependency>
     </dependencies>
 
