@@ -9,6 +9,10 @@ class Meal(models.Model):
     small_image_url = models.URLField(max_length=200, null=True, blank=True)
     video_instructions_url = models.URLField(max_length=200, null=True, blank=True)
 
+    @property
+    def youtube_embed_url(self) -> str:
+        return self.video_instructions_url.replace('watch?v=', 'embed/')
+
     def __str__(self):
         return self.name
 
