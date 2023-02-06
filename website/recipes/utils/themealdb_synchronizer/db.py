@@ -84,7 +84,7 @@ def _extract_normalized_ingredient_measures(themealdb_meal_dict: typehints) -> d
     for i in range(1, 21):  # Iterating through all 20 possible ingredients
         name = themealdb_meal_dict[f'strIngredient{i}']  # noqa
         measure = themealdb_meal_dict[f'strMeasure{i}']  # noqa
-        if name is None:
+        if not name:
             break
 
         name = name.capitalize()
