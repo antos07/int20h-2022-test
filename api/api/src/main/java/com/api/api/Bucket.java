@@ -17,8 +17,9 @@ public class Bucket {
         return meals;
     }
 
-    public void setMeals(List<Meal> meals) {
+    public void setMeals(List<Meal> meals, Fridge fridge) {
         this.meals = meals;
+        countAllNeededIngredients(fridge);
     }
 
     public Bucket(List<Meal> meals) {
@@ -32,9 +33,9 @@ public class Bucket {
         if(meals.isEmpty()) return true;
         else return false;
     }
-    public void addMeal(Meal meal){
+    public void addMeal(Meal meal, Fridge fridge){
         meals.add(meal);
-        countAllNeededIngredients();
+        countAllNeededIngredients(fridge);
     }
     public class indexOutOfBounds extends Exception{
         public indexOutOfBounds(String errorMessage){
@@ -45,12 +46,12 @@ public class Bucket {
             super();
         }
     }
-    public void deleteMeal(@NotNull Meal meal)throws indexOutOfBounds{
+    public void deleteMeal(@NotNull Meal meal, Fridge fridge)throws indexOutOfBounds{
         int index=0;
         while(meals.get(index).getId()!=meal.getId() && index<meals.size()) index++;
         if(index==meals.size()) throw new indexOutOfBounds("Index is out of borders");
         meals.remove(index);
-        countAllNeededIngredients();
+        countAllNeededIngredients(fridge);
     }
 
     public boolean isMealInBucket(Meal meal){
@@ -62,9 +63,16 @@ public class Bucket {
         return meals.toString();
     }
 
-    public void countAllNeededIngredients(){
+    public void countAllNeededIngredients(Fridge fridge) {
         needed_ingredients.clear();
         for(int i=0; i<meals.size(); i++){
+            for(int j=0; j<meals.get(i).getIngredients().size(); j++)
+            if(!needed_ingredients.contains(meals.get(i).getIngredients().get(j))) needed_ingredients.add(meals.get(i).getIngredients().get(j));
+        }
+        for(int i=0; i<fridge.getIngredients().size(); i++){
+            if (needed_ingredients.contains(fridge.getIngredients().get(i))) needed_ingredients.remove(fridge.getIngredients().get(i));
+        }
+        /*for(int i=0; i<meals.size(); i++){
             for(int j=0; j<meals.get(i).getIngredients().size(); j++){
                 if(needed_ingredients.contains(meals.get(i).getIngredients().get(j))) needed_ingredients.add(meals.get(i).getIngredients().get(j));
                 else{
@@ -72,6 +80,13 @@ public class Bucket {
                     needed_ingredients.get(index).setMeasure(needed_ingredients.get(index).getMeasure()+meals.get(i).getIngredients().get(j).getMeasure());
                 }
             }
-        }
+        }*/
+        // for(int i=0; i<fridge.getIngredients().size(); i++){
+          //  if(needed_ingredients.contains(fridge.getIngredients().get(i))){
+
+           // }
+        //}
     }
+
+
 }

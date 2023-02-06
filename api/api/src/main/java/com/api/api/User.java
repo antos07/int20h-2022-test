@@ -11,6 +11,8 @@ public class User {
 
     public User() {
         Random rn = new Random();
+        this.id=-1;
+        while(this.id<0)
         this.id =rn.nextInt();
     }
 }
