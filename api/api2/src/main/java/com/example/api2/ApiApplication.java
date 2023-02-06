@@ -1,9 +1,14 @@
 package com.example.api2;
 
+import com.example.api2.entities.*;
+import com.example.api2.repositories.BasketRepository;
+import com.example.api2.repositories.FridgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,7 +28,7 @@ public class ApiApplication {
         SpringApplication.run(ApiApplication.class, args);
 
     }
-    @GetMapping("/userid")
+    @GetMapping("/userId")
     public int userId(){
         return user.getId();
     }
@@ -53,6 +58,8 @@ public class ApiApplication {
         fridge.setIngredients(List.of(milk, apple));
         Meal pasta=new Meal(1, "pasta", List.of(rise, milk, water), "kkkk");
         basket.setMeals(List.of(pasta), fridge);
+        basket.setMeals(List.of(pasta), fridge);
+        basket.addMeal(pasta, fridge);
         idSetting();
         dataSaving();
     }
@@ -69,5 +76,10 @@ public class ApiApplication {
     public void dataSaving(){
         fridgeRepository.save(fridge);
         basketRepository.save(basket);
+    }
+
+    @PostMapping("/addMeal")
+    public void addMeal(@RequestBody Meal meal){
+        basket.addMeal(meal, fridge);
     }
 }
