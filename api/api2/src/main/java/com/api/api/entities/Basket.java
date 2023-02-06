@@ -1,4 +1,4 @@
-package com.example.api2.entities;
+package com.api.api.entities;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
@@ -10,8 +10,8 @@ import java.util.List;
 public class Basket {
     @Id
     private int id;
-    private List<Meal> meals=new ArrayList<Meal>();
-    private List<Ingredient> needed_ingredients=new ArrayList<Ingredient>();
+    private List<Meal> meals=new ArrayList<>();
+    private List<Ingredient> needed_ingredients=new ArrayList<>();
 
     public List<Ingredient> getNeeded_ingredients() {
         return needed_ingredients;
@@ -39,6 +39,7 @@ public class Basket {
     }
 
     public Basket() {
+
     }
 
     public boolean isEmpty(){

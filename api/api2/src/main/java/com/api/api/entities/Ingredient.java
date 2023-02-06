@@ -1,4 +1,4 @@
-package com.example.api2.entities;
+package com.api.api.entities;
 
 public class Ingredient {
     private int id;

@@ -1,4 +1,4 @@
-package com.example.api2.entities;
+package com.api.api.entities;
 
 import java.util.ArrayList;
 import java.util.List;
