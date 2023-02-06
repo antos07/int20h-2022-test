@@ -18,15 +18,15 @@
             <p class="text-center mt-4 fw-bold" style="font-size: 17px;">Ingredients:</p>
             <div class="container d-flex justify-content-center">
                 <ul class="list-group ms-2">
-                    {% for ingridient in meal.ingredient_set.all %}
-                        <li class="mt-2">{{ ingridient }}</li>
+                    {% for measure in measures %}
+                        <li class="mt-2">{{ measure.ingredient }} — {{ measure.measure }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
 
         <div class="col mt-4 align-content-center" style="width: 40px; max-width: 50px; padding-left: 0;">
-            <button type="button" class="mini-button">
+            <button type="button" class="mini-button-add-remove">
                 <img src="{% static 'recipes/images/listIcon.png' %}" alt="Add to the cart" style="width:25px">
             </button>
         </div>
