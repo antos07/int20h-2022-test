@@ -60,8 +60,12 @@ public class Basket {
         }
     }
     public void deleteMeal(@NotNull Meal meal, Fridge fridge)throws NotFound {
-        if(meals.contains(meal)){
-            meals.remove(meal);
+        int index=-1;
+        for(int i=0; i<meals.size(); i++){
+            if(meals.get(i).getId()==meal.getId()) index=i;
+        }
+        if(index!=-1){
+            meals.remove(index);
             countAllNeededIngredients(fridge);
         }
         else{
@@ -70,8 +74,11 @@ public class Basket {
     }
 
     public boolean isMealInBucket(Meal meal){
-        if (meals.contains(meal)) return true;
-        else return false;
+        int index=-1;
+        for(int i=0; i<meals.size(); i++){
+            if(meals.get(i).getId()==meal.getId()) return true;
+        }
+        return false;
     }
 
     public String allMeals(){
@@ -88,6 +95,4 @@ public class Basket {
             if (needed_ingredients.contains(fridge.getIngredients().get(i))) needed_ingredients.remove(fridge.getIngredients().get(i));
         }
     }
-
-
 }

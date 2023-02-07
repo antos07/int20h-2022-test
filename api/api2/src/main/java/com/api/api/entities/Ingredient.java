@@ -6,17 +6,26 @@ public class Ingredient {
     private String description;
     private int category_id;//??
     private String image_url;
-    //private double measure;
+    private String measure;
 
     public Ingredient() {
     }
 
-    public Ingredient(int id, String name, String description, int category_id, String image_url) {
+    public Ingredient(int id, String name, String description, int category_id, String image_url, String measure) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.category_id = category_id;
         this.image_url = image_url;
+        this.measure=measure;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 
     public int getId() {
