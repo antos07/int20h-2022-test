@@ -142,5 +142,10 @@
 }
 .button-header-text:hover {
     font-size: 1.35rem !important;
+    margin-right: 2px;
+}
+.dish-image:hover {
+    width: 125px;
+    height: 125px;
 }
 
