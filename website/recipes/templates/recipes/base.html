@@ -9,7 +9,11 @@
     <link href="{% static 'recipes/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'recipes/css/unique.css' %}" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{% static 'recipes/images/siteIcon.ico' %}">
+    <script src="{% static 'recipes/js/api.js' %}"></script>
+    <script src="{% static 'recipes/js/main.js' %}"></script>
     <title>{% block title %}MyMealList{% endblock %}</title>
+
+    {% block additionalHeadElements %}{% endblock %}
 </head>
 <body style="background-color:#f2f2f0;">
 <div class="container-fluid unique-color-1" style="border-radius: 0.275rem">

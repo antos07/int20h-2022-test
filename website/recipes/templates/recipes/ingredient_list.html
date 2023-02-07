@@ -1,9 +1,8 @@
 {% extends 'recipes/base.html' %}
 {% load static %}
-
 {% block content %}
-
-    <h1 class="text-center mt-5 fw-bold text-family-header mb-4" style="font-size: 24px;">Current products</h1>
+    <h1 class="text-center mt-5 fw-bold text-fingredient_idamily-header mb-4" style="font-size: 24px;">Current
+        products</h1>
 
     <div class="container-fluid">
         <div id="current" class="row mt-2 underImageText">
@@ -13,9 +12,8 @@
     <div class="container border-top mt-5">
         <h1 class="text-center mt-5 fw-bold text-family-header mb-4" style="font-size: 24px;">All ingredients</h1>
     </div>
-
-    {% static 'recipes/images/noImage.jpg' as no_image_url %}
     {% regroup ingredient_list by category as ingredient_groups %}
+    {% static 'recipes/images/noImage.jpg' as no_image_url %}
     {% for category, ingredients in ingredient_groups %}
         <div class="category">
             <h2 class="text-center mt-4 fw-bold text-family-header mb-4"
@@ -23,17 +21,20 @@
             <div class="container-fluid">
                 <div class="row mt-2 underImageText">
                     {% for ingredient in ingredients %}
-                        <div class="col text-center">
+                        <div class="col text-center ingredient_{{ ingredient.id }}">
                             <p class="text-center mb-1">{{ ingredient.name }}</p>
                             {% firstof ingredient.small_image_url ingredient.image_url no_image_url as image_url %}
                             <img src="{{ image_url }}" alt="{{ ingredient.name }} image"
                                  class="rounded mx-auto d-block mb-2" style="width: 60px; height: 60px;">
-                            <button type="button" class="mini-button-add-remove mb-4">+</button>
+                            <button type="button"
+                                    class="mini-button-add-remove mb-4 ingredientButton_{{ ingredient.id }}">+
+                            </button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-
     {% endfor %}
+
+    <script src="{% static "recipes/js/fridge.js" %}"></script>
 {% endblock %}
