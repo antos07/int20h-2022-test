@@ -9,4 +9,5 @@ urlpatterns = [
     path('recipes/<int:pk>/', views.MealDetailView.as_view(), name='meal_details'),
     path('fridge/', views.IngredientListView.as_view(), name='fridge'),
     path('basket/', views.BasketView.as_view(), name='basket'),
+    path('api/meals/<int:meal_id>/', views.get_meal_json)
 ]

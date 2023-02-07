@@ -1,6 +1,9 @@
+from django.http import HttpRequest, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import Meal, MealIngredientMeasure, Ingredient
+from .utils import serializers
 
 
 class MealListView(ListView):
@@ -47,3 +50,13 @@ class IngredientListView(ListView):
 
 class BasketView(TemplateView):
     template_name = 'recipes/basket.html'
+
+
+def get_meal_json(request: HttpRequest, meal_id: int):
+    """Responses with json-serialized meal. Look at
+    serializers.serialize_meal doc for schema info"""
+    meal = get_object_or_404(Meal, pk=meal_id)
+    ingredient_measures = MealIngredientMeasure.objects.filter(meal=meal).all()
+
+    serialized_meal = serializers.serialize_meal(meal, ingredient_measures)
+    return JsonResponse(serialized_meal)
