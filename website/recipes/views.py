@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import Meal, MealIngredientMeasure, Ingredient
 
@@ -43,3 +43,7 @@ class MealDetailView(DetailView):
 class IngredientListView(ListView):
     model = Ingredient
     ordering = ['-category', 'name']
+
+
+class BasketView(TemplateView):
+    template_name = 'recipes/basket.html'
