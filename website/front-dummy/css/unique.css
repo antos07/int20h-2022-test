@@ -28,7 +28,6 @@
     margin: 0;
 }
 .page-divider {
-    text-align: center;
     padding: 10px;
     justify-content: center;
     height: 500px;
@@ -42,8 +41,15 @@
     float: left;
     width:40%;
 }
-
-@media only screen and (max-width: 700px) {
+.mm {
+    padding-right: 3rem;
+}
+.adaptive-text {
+    font-size: 14px;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+}
+@media only screen and (max-width: 860px) {
     .one {
         float: none;  
         border-right: none;
@@ -53,6 +59,14 @@
     .two {
         float: none;  
         width: 100%
+    }
+    .adaptive-text {
+        font-size: 13px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .mm {
+        padding-right: 0.1rem;
     }
 }
 
@@ -104,3 +118,4 @@
     border-width: 0;
     border-radius: 3rem;
 }
+
