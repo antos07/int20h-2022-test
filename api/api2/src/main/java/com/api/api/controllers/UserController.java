@@ -43,10 +43,9 @@ public class UserController {
         }
         else{
             fridge=fridges.get(index);
-            index=-1;
             List<Basket> baskets=basketRepository.findAll();
             for(int i=0; i<baskets.size(); i++){
-                if(baskets.get(i).getId()==userId) baskets.get(i);
+                if(baskets.get(i).getId()==userId) basket=baskets.get(i);
             }
         }
     }
