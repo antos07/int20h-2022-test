@@ -24,7 +24,7 @@
                             {{ meal.image_url }}
                         {% else %}
                             {% static 'recipes/images/noImage.jpg' %}
-                        {% endif %}" alt="{{ meal.name }} icon" class="rounded mx-auto d-block" width="120px"
+                        {% endif %}" alt="{{ meal.name }} icon" class="rounded mx-auto d-block dish-image" width="120px"
                              height="120px"/>
                     </a>
                     <a href="{% url 'recipes:meal_details' pk=meal.pk %}" class="text-decoration-none text-black">

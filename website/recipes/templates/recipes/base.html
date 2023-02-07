@@ -24,12 +24,9 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="{% url 'recipes:meal_list' %}"
-                                    class="nav-link text-black text-family-header fs-5">Dishes</a></li>
+                                    class="nav-link text-black text-family-header fs-5 button-header-text">Dishes</a></li>
             <li class="nav-item"><a href="{% url 'recipes:fridge' %}"
-                                    class="nav-link text-black text-family-header fs-5">Fridge</a></li>
-            <li class="nav-item"><a href="{% url 'recipes:basket' %}" class="nav-link">
-                <img src="{% static 'recipes/images/listIcon.png' %}" class="bi" width="33" height="33">
-            </a></li>
+                                    class="nav-link text-black text-family-header fs-5 button-header-text">Fridge</a></li>
         </ul>
     </header>
 </div>
@@ -38,23 +35,18 @@
     {% block content %}{% endblock %}
 </div>
 
-<footer class="mt-0 unique-color-1">
+<footer class="mt-4 unique-color-1">
     <div class="container py-4 align-items-center">
-        <hr style="color: inherit;
-            border: 0;
-            border-top: var(--bs-border-width) solid;
-            opacity: 0.25;
-            margin-top: 0;
-            margin-bottom: 1rem;">
+        <hr class="horizontal-hr">
         <p class="text-center" style="font-size: 0.9rem;">
             Developers' contacts:
         </p>
         <p class="text-center" style="font-size: 0.8rem;">
-            LoremIpsum@gmail.com
+            trotsenko.ant07@gmail.com
             <br>
-            LoremIpsum@gmail.com
+            swan.polina00@gmail.com
             <br>
-            LoremIpsum@gmail.com
+            olgacherry03@gmail.com
         </p>
 
     </div>
