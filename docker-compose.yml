@@ -4,5 +4,41 @@ services:
   # Main website service
   website:
     build: "./website/"
+    environment:
+      DB_NAME: "website"
+      DB_USER: "django"
+      DB_PASSWORD: ${MYSQL_DJANGO_PASSWORD:?MySQL django user's password}
+      DB_HOST: "website-db"
+      DB_PORT: "3306"
     ports:
       - "8000:8000"
+    networks:
+      - front
+      - website-back
+    depends_on:
+      website-db:
+        condition: service_healthy
+
+  website-db:
+    image: mysql
+    command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --authentication_policy=mysql_native_password"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?MySQL root user's password}
+      MYSQL_DATABASE: "website"
+      MYSQL_USER: "django"
+      MYSQL_PASSWORD: ${MYSQL_DJANGO_PASSWORD:?MySQL django user's password}
+    networks:
+      - website-back
+    volumes:
+      - website-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      timeout: 10s
+      retries: 20
+
+networks:
+  front:
+  website-back:
+
+volumes:
+  website-db-data:

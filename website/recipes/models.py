@@ -6,7 +6,15 @@ class Meal(models.Model):
     name = models.CharField(max_length=100)
     instructions = models.TextField()
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     video_instructions_url = models.URLField(max_length=200, null=True, blank=True)
+
+    @property
+    def youtube_embed_url(self) -> str | None:
+        try:
+            return self.video_instructions_url.replace('watch?v=', 'embed/')
+        except AttributeError:
+            return None
 
     def __str__(self):
         return self.name
@@ -25,6 +33,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
     image_url = models.URLField(max_length=200, null=True, blank=True)
+    small_image_url = models.URLField(max_length=200, null=True, blank=True)
     meals = models.ManyToManyField(Meal, through='MealIngredientMeasure')
     category = models.ForeignKey(IngredientCategory, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -46,3 +55,40 @@ class MealIngredientMeasure(models.Model):
 
     def __str__(self):
         return f'"{self.ingredient}" in "{self.meal}": {self.measure}'
+
+
+class TheMealDBMeal(models.Model):
+    """Stores the meal's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    meal = models.OneToOneField(Meal, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredient(models.Model):
+    """Stores the ingredient's id at TheMealDB"""
+
+    themealdb_id = models.PositiveBigIntegerField(primary_key=True)
+    ingredient = models.OneToOneField(Ingredient, on_delete=models.CASCADE)
+
+
+class TheMealDBIngredientCategory(models.Model):
+    """Stores the ingredient category's name at TheMealDB"""
+
+    temealdb_name = models.CharField(max_length=30, primary_key=True)
+    category = models.OneToOneField(IngredientCategory, on_delete=models.CASCADE)
+
+
+# Implementing MySQL fulltext search lookup.
+# Code taken from: https://docs.djangoproject.com/en/stable/releases/1.10/#search-lookup-replacement
+class Search(models.Lookup):  # noqa
+    lookup_name = 'search'
+
+    def as_mysql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = lhs_params + rhs_params
+        return 'MATCH (%s) AGAINST (%s IN BOOLEAN MODE)' % (lhs, rhs), params
+
+
+models.CharField.register_lookup(Search)
+models.TextField.register_lookup(Search)
