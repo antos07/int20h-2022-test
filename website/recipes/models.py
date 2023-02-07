@@ -78,6 +78,21 @@ class TheMealDBIngredientCategory(models.Model):
     category = models.OneToOneField(IngredientCategory, on_delete=models.CASCADE)
 
 
+class User(models.Model):
+    uuid = models.UUIDField(primary_key=True)
+    created_at = models.DateTimeField(auto_now=True)
+
+
+class Fridge(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ingredients = models.ManyToManyField(Ingredient)
+
+
+class Basket(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    meals = models.ManyToManyField(Meal)
+
+
 # Implementing MySQL fulltext search lookup.
 # Code taken from: https://docs.djangoproject.com/en/stable/releases/1.10/#search-lookup-replacement
 class Search(models.Lookup):  # noqa
