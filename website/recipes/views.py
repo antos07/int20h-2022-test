@@ -1,8 +1,11 @@
-from django.http import HttpRequest, JsonResponse
+import json
+import uuid
+
+from django.http import HttpRequest, JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 
-from .models import Meal, MealIngredientMeasure, Ingredient
+from .models import Meal, MealIngredientMeasure, Ingredient, User, Fridge, Basket
 from .utils import serializers
 
 
@@ -61,3 +64,46 @@ def get_meal_json(request: HttpRequest, meal_id: int):
 
     serialized_meal = serializers.serialize_meal(meal, ingredient_measures)
     return JsonResponse(serialized_meal)
+
+
+def create_user(request: HttpRequest):
+    user = User(uuid=uuid.uuid4())
+    user.fridge = Fridge()
+    user.basket = Basket()
+    user.save()
+    return JsonResponse({'user_id': user.uuid})
+
+
+def add_ingredient_to_fridge(request: HttpRequest, user_uuid: str):
+    if request.method != 'POST':
+        raise Http404
+    fridge = get_object_or_404(Fridge, user_id=user_uuid)
+    data = json.loads(request.body)
+    ingredient_id = data['ingredient_id']
+    if fridge.ingredients.filter(pk=ingredient_id).exists():
+        return JsonResponse({'success': False})
+    ingredient = get_object_or_404(Ingredient, pk=ingredient_id)
+    fridge.ingredients.add(ingredient)
+    fridge.save()
+    return JsonResponse({'success': True})
+
+
+def remove_ingredient_from_fridge(request: HttpRequest, user_uuid: str):
+    if request.method != 'POST':
+        raise Http404
+    fridge = get_object_or_404(Fridge, user_id=user_uuid)
+    data = json.loads(request.body)
+    ingredient_id = data['ingredient_id']
+    if not fridge.ingredients.filter(pk=ingredient_id).exists():
+        return JsonResponse({'success': False})
+    ingredient = get_object_or_404(Ingredient, pk=ingredient_id)
+    fridge.ingredients.remove(ingredient)
+    fridge.save()
+    return JsonResponse({'success': True})
+
+
+def list_ingredients_at_fridge(request: HttpRequest, user_uuid: str):
+    fridge = get_object_or_404(Fridge, user_id=user_uuid)
+    ingredients = fridge.objects.all()
+    ingredients = [ingredient.id for ingredient in ingredients]
+    return JsonResponse({'ingredients': ingredients})
