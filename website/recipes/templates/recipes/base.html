@@ -19,10 +19,12 @@
         </p>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link text-black text-family-header fs-5">Dishes</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-black text-family-header fs-5">Fridge</a></li>
+            <li class="nav-item"><a href="{% url 'recipes:meal_list' %}"
+                                    class="nav-link text-black text-family-header fs-5">Dishes</a></li>
+            <li class="nav-item"><a href="{% url 'recipes:fridge' %}"
+                                    class="nav-link text-black text-family-header fs-5">Fridge</a></li>
             <li class="nav-item"><a href="#" class="nav-link">
-                <img src="{% static 'recipes/images/listIcon.png' %}" class="bi" width="33" height="33"></img>
+                <img src="{% static 'recipes/images/listIcon.png' %}" class="bi" width="33" height="33">
             </a></li>
         </ul>
     </header>

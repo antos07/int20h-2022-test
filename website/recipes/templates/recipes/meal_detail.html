@@ -1,16 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ meal.name }}</title>
-</head>
-<body>
-    <h1>{{ meal.name }}</h1>
-    <img src="{{ meal.image_url }}">
-    <p>{{ meal.instructions }}</p>
-    {% if meal.video_instructions_url %}
-        <a href="{{ meal.video_instructions_url }}">Video</a>
-    {% endif %}
-    <a href="{% url 'recipes:index' %}">Back</a>
-</body>
-</html>
+{% extends 'recipes/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <p class="text-center text-family-header fs-3 mt-2">{{ meal.name }}</p>
+
+    <div class="row mt-4">
+        <div class="col">
+            <img src="{% if meal.image_url %}
+                {{ meal.image_url }}
+            {% else %}
+                {% static 'recipes/images/noImage.jpg' %}
+            {% endif %}" alt="{{ meal.name }} image" class="rounded mx-auto d-block mt-4" width="350px" height="350px">
+        </div>
+
+        <div class="col" style="min-width: 200px;">
+            <p class="text-center mt-4 fw-bold" style="font-size: 17px;">Ingredients:</p>
+            <div class="container d-flex justify-content-center">
+                <ul class="list-group ms-2">
+                    {% for measure in measures %}
+                        <li class="mt-2">{{ measure.ingredient }} — {{ measure.measure }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col mt-4 align-content-center" style="width: 40px; max-width: 50px; padding-left: 0;">
+            <button type="button" class="mini-button-add-remove">
+                <img src="{% static 'recipes/images/listIcon.png' %}" alt="Add to the cart" style="width:25px">
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <p class="text-center mt-5 fw-bold" style="font-size: 17px;">Recipe:</p>
+        <p class="mt-2 fs-6">{{ meal.instructions }}</p>
+    </div>
+
+    <div class="container mb-5 mt-5">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ meal.youtube_embed_url }}"></iframe>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

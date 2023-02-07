@@ -9,6 +9,10 @@ class Meal(models.Model):
     small_image_url = models.URLField(max_length=200, null=True, blank=True)
     video_instructions_url = models.URLField(max_length=200, null=True, blank=True)
 
+    @property
+    def youtube_embed_url(self) -> str:
+        return self.video_instructions_url.replace('watch?v=', 'embed/')
+
     def __str__(self):
         return self.name
 
@@ -69,3 +73,19 @@ class TheMealDBIngredientCategory(models.Model):
 
     temealdb_name = models.CharField(max_length=30, primary_key=True)
     category = models.OneToOneField(IngredientCategory, on_delete=models.CASCADE)
+
+
+# Implementing MySQL fulltext search lookup.
+# Code taken from: https://docs.djangoproject.com/en/stable/releases/1.10/#search-lookup-replacement
+class Search(models.Lookup):  # noqa
+    lookup_name = 'search'
+
+    def as_mysql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = lhs_params + rhs_params
+        return 'MATCH (%s) AGAINST (%s IN BOOLEAN MODE)' % (lhs, rhs), params
+
+
+models.CharField.register_lookup(Search)
+models.TextField.register_lookup(Search)
