@@ -27,22 +27,21 @@ services:
       - api-back
       - front
     depends_on:
-      api-db:
-        condition: service_healthy
+      - api-db
 
   api-db:
     image: mongo
     container_name: mongodb
+    restart: always
     environment:
-      restart: always
-      environment:
-        MONGO_INITDB_DATABASE=api
-        MONGO_INITDB_ROOT_USERNAME=api
-        MONGO_INITDB_ROOT_PASSWORD=api
-      volumes:
-        ./mongo-volume:/data/db
-      ports:
-        27017:27017
+      - MONGO_INITDB_DATABASE=api
+      - MONGO_INITDB_ROOT_USERNAME=api
+      - MONGO_INITDB_ROOT_PASSWORD=api
+    command: mongod
+    volumes:
+      - api-bd-data:/var/lib/mongo
+    networks:
+      - api-back
 
   website-db:
     image: mysql
@@ -68,4 +67,4 @@ networks:
 
 volumes:
   website-db-data:
-  ./mongo-volume:/data/db:
+  api-bd-data:
