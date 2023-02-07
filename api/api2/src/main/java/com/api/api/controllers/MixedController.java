@@ -47,6 +47,11 @@ public class MixedController {
         idSetting();
         dataSaving();
     };
+    @GetMapping("/save")
+    public void save(){
+        idSetting();
+        dataSaving();
+    }
 
     public void idSetting(){
         StaticObj.fridge.setId(StaticObj.user.getId());
@@ -56,6 +61,4 @@ public class MixedController {
         fridgeRepository.save(StaticObj.fridge);
         basketRepository.save(StaticObj.basket);
     }
-
-
 }

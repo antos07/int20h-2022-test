@@ -50,21 +50,23 @@ public class Basket {
         meals.add(meal);
         countAllNeededIngredients(fridge);
     }
-    public class indexOutOfBounds extends Exception{
-        public indexOutOfBounds(String errorMessage){
+    public class NotFound extends Exception{
+        public NotFound(String errorMessage){
             super(errorMessage);
         }
 
-        public indexOutOfBounds() {
+        public NotFound() {
             super();
         }
     }
-    public void deleteMeal(@NotNull Meal meal, Fridge fridge)throws indexOutOfBounds{
-        int index=0;
-        while(meals.get(index).getId()!=meal.getId() && index<meals.size()) index++;
-        if(index==meals.size()) throw new indexOutOfBounds("Index is out of borders");
-        meals.remove(index);
-        countAllNeededIngredients(fridge);
+    public void deleteMeal(@NotNull Meal meal, Fridge fridge)throws NotFound {
+        if(meals.contains(meal)){
+            meals.remove(meal);
+            countAllNeededIngredients(fridge);
+        }
+        else{
+            throw new NotFound("Meal is not in the basket");
+        }
     }
 
     public boolean isMealInBucket(Meal meal){
