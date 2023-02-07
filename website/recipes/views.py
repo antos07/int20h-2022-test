@@ -8,6 +8,7 @@ from .utils import serializers
 
 class MealListView(ListView):
     model = Meal
+    paginate_by = 50
 
     def get_queryset(self):
         meal_queryset = Meal.objects
