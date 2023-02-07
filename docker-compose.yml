@@ -24,9 +24,25 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - website-back
+      - api-back
+      - front
+    depends_on:
+      api-db:
+        condition: service_healthy
 
-
+  api-db:
+    image: mongo
+    container_name: mongodb
+    environment:
+      restart: always
+      environment:
+        MONGO_INITDB_DATABASE=api
+        MONGO_INITDB_ROOT_USERNAME=api
+        MONGO_INITDB_ROOT_PASSWORD=api
+      volumes:
+        ./mongo-volume:/data/db
+      ports:
+        27017:27017
 
   website-db:
     image: mysql
@@ -48,6 +64,8 @@ services:
 networks:
   front:
   website-back:
+  api-back:
 
 volumes:
   website-db-data:
+  ./mongo-volume:/data/db:
