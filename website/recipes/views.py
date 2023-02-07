@@ -19,6 +19,9 @@ class MealListView(ListView):
         # Filtering search results, if query is present.
         if search_query := self.request.GET.get('q'):
             meal_queryset = meal_queryset.filter(name__search=search_query)
+        if ingredients := self.request.GET.get('require'):
+            ingredients = json.loads(ingredients)
+            meal_queryset = meal_queryset.filter(mealingredientmeasure__ingredient__id__in=ingredients)
 
         return meal_queryset.order_by('name')
 

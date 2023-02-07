@@ -99,3 +99,14 @@ function getIngredientIdFromButton(buttonElement) {
 }
 
 setupFridge()
+
+
+function redirectToQuery(base_url) {
+    const ingredients = new Array(0)
+    for (const ingredientId of window.fridgeContent)
+    {
+        ingredients.push(ingredientId)
+    }
+    const jsonIngredients = JSON.stringify(ingredients)
+    window.location.href =`${base_url}?require=${jsonIngredients}`
+}
