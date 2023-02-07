@@ -37,12 +37,14 @@
         <p class="mt-2 fs-6">{{ meal.instructions }}</p>
     </div>
 
-    <div class="container mb-5 mt-5">
-        <div style="display: flex; align-items: center; justify-content: center;">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="{{ meal.youtube_embed_url }}"></iframe>
+    {% if meal.youtube_embed_url %}
+        <div class="container mb-5 mt-5">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ meal.youtube_embed_url }}"></iframe>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}
